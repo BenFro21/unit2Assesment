@@ -1,3 +1,7 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -72,5 +76,77 @@ public class Order {
                 }
             }
         }
+
+        // part 4
+        System.out.println(order.get(0));
+        System.out.println(order.get(1));
+        double subTotal = 0.0;
+        for (int i = 2; i < order.size() ; i++) {
+            // check if order i is equal to cupcakeMenu 0
+            if(order.get(i).equals(cupcakeMenu.get(0))){
+                cupcakeMenu.get(0).type();
+                System.out.println(cupcakeMenu.get(0).getPrice());
+                subTotal += cupcakeMenu.get(0).getPrice();
+            } else if (order.get(i).equals(cupcakeMenu.get(1))) {
+                cupcakeMenu.get(1).type();
+                System.out.println(cupcakeMenu.get(1).getPrice());
+                subTotal += cupcakeMenu.get(1).getPrice();
+            }else if(order.get(i).equals((cupcakeMenu.get(2)))){
+                cupcakeMenu.get(2).type();
+                System.out.println(cupcakeMenu.get(2).getPrice());
+                subTotal += cupcakeMenu.get(2).getPrice();
+            }else if(order.get(i).equals(drinkMenu.get(0))){
+                drinkMenu.get(0).type();
+                System.out.println(drinkMenu.get(0).getPrice());
+                subTotal += drinkMenu.get(0).getPrice();
+            }else if(order.get(i).equals(drinkMenu.get(1))){
+                drinkMenu.get(1).type();
+                System.out.println(drinkMenu.get(1).getPrice());
+                subTotal += drinkMenu.get(1).getPrice();
+            } else if (order.get(i).equals(drinkMenu.get(2))) {
+                drinkMenu.get(2).type();
+                System.out.println(drinkMenu.get(2).getPrice());
+                subTotal += drinkMenu.get(2).getPrice();
+            }
+            System.out.println("$ " + subTotal);
+            new CreateFile();
+            new WriteToFile(order);
+        }
+    }
+    //project 4 part 2
+    public class CreateFile{
+        public CreateFile(){
+            try{
+                File salesData = new File("salesData.txt");
+                if(salesData.createNewFile()){
+                    System.out.println("File Created: " + salesData.getName());
+                }else {
+                    System.out.println("File already made");
+                }
+            } catch (IOException e) {
+                System.out.println("Error");
+            }
+        }
+    }
+    //project 4 part 3
+    public class WriteToFile{
+        public WriteToFile(ArrayList<Object> order){
+            try{
+                FileWriter fw = new FileWriter("salesData.txt", true);
+                PrintWriter salesWriter = new PrintWriter(fw);
+
+                for (int i = 0; i < order.size() ; i++) {
+                    salesWriter.println(order.get(i));
+                }
+                salesWriter.close();
+                System.out.println("Successfully wrote to the file.");
+            } catch (IOException e) {
+                System.out.println("Error");
+            }
+
+        }
     }
 }
+
+
+
